@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Diabetes Predictor</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+      }
+      form {
+        display: grid;
+        gap: 10px;
+      }
+      label {
+        font-weight: bold;
+      }
+      input {
+        padding: 5px;
+      }
+      button {
+        padding: 10px;
+        background: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      .error {
+        color: red;
+      }
+      .result {
+        color: green;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Diabetes Prediction</h1>
+    <form method="POST" action="">
+      {% csrf_token %}
+      <label>Pregnancies:</label>
+      <input type="number" name="pregnancies" step="any" required />
+      <label>Glucose:</label>
+      <input type="number" name="glucose" step="any" required />
+      <label>Blood Pressure:</label>
+      <input type="number" name="blood_pressure" step="any" required />
+      <label>Skin Thickness:</label>
+      <input type="number" name="skin_thickness" step="any" required />
+      <label>Insulin:</label>
+      <input type="number" name="insulin" step="any" required />
+      <label>BMI:</label>
+      <input type="number" name="bmi" step="any" required />
+      <label>Diabetes Pedigree Function:</label>
+      <input type="number" name="diabetes_pedigree" step="any" required />
+      <label>Age:</label> <input type="number" name="age" step="any" required />
+      <button type="submit">Predict</button>
+    </form>
+    {% if result %}
+    <h2 class="result">Prediction: {{ result }}</h2>
+    {% else %}
+    <p>No prediction available</p>
+    {% endif %} {% if error %}
+    <h2 class="error">Error: {{ error }}</h2>
+    {% endif %}
+    <!-- Debug output -->
+    {% comment %}
+    <p>
+      Debug: Result = {{ result|default:"None" }}, Error = {{
+      error|default:"None" }}
+    </p>
+    {% endcomment %}
+  </body>
+</html>
